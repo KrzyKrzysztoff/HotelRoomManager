@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelRoomManager.API", "HotelRoomManager.API\HotelRoomManager.API.csproj", "{7E3C8DC8-7DD4-4E70-BD7B-B55B749F7E99}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelRoomManager.Integration.Tests", "HotelRoomManager.Integration.Tests\HotelRoomManager.Integration.Tests.csproj", "{9E69DE55-839C-4052-9963-2BDCFB199318}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelRoomManager.Application.Tests", "HotelRoomManager.Application.Tests\HotelRoomManager.Application.Tests.csproj", "{7034DE7B-9BDE-4EF3-8C3E-B6069E7A7100}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelRoomManager.Common", "HotelRoomManager.Common\HotelRoomManager.Common.csproj", "{16B44614-7379-4626-B00D-B67AFD1BAB07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{7034DE7B-9BDE-4EF3-8C3E-B6069E7A7100}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7034DE7B-9BDE-4EF3-8C3E-B6069E7A7100}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7034DE7B-9BDE-4EF3-8C3E-B6069E7A7100}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16B44614-7379-4626-B00D-B67AFD1BAB07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16B44614-7379-4626-B00D-B67AFD1BAB07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16B44614-7379-4626-B00D-B67AFD1BAB07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16B44614-7379-4626-B00D-B67AFD1BAB07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,5 +87,6 @@ Global
 		{C19F5EC3-7910-4ADB-9C2D-1850F78EBC46} = {2EF42821-A309-4848-9B74-89B979246787}
 		{9E69DE55-839C-4052-9963-2BDCFB199318} = {2EF42821-A309-4848-9B74-89B979246787}
 		{7034DE7B-9BDE-4EF3-8C3E-B6069E7A7100} = {2EF42821-A309-4848-9B74-89B979246787}
+		{16B44614-7379-4626-B00D-B67AFD1BAB07} = {DB1BDC73-51B4-4A8E-A5FB-F81CB0E05B60}
 	EndGlobalSection
 EndGlobal

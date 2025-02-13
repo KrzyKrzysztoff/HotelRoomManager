@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HotelRoomManager.Common\HotelRoomManager.Common.csproj" />
     <ProjectReference Include="..\HotelRoomManager.Domain\HotelRoomManager.Domain.csproj" />
   </ItemGroup>
 
