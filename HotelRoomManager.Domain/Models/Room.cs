@@ -15,5 +15,21 @@ namespace HotelRoomManager.Domain.Models
         public string? Description { get; set; }
         public AvailabilityDetail? Detail { get; set; }
     }
-   
+    public enum RoomStatus
+    {
+        Available,
+        Occupied,
+        Cleaning,
+        Maintenance,
+        ManuallyLocked
+    }
+
+    public enum RoomSortBy
+    {
+        NameAsc,
+        NameDesc,
+        SizeAsc,
+        SizeDesc,
+        Availability
+    }
 }
