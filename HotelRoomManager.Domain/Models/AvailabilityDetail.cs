@@ -8,6 +8,7 @@ namespace HotelRoomManager.Domain.Models
 {
     public class AvailabilityDetail
     {
+        public Guid Id { get; set; }
         public string Reason { get; set; } = null!;
         public string? Description { get; set; }
     }

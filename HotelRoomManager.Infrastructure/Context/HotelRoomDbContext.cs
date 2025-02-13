@@ -11,5 +11,6 @@ namespace HotelRoomManager.Infrastructure.Context
     public class HotelRoomDbContext(DbContextOptions options) : DbContext(options)
     {
         public DbSet<Room> Rooms{ get; set; }
+        public DbSet<AvailabilityDetail> AvailabilityDetails { get; set; }
     }
 }
