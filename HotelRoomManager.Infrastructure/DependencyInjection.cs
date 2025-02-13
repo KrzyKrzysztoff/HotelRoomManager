@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HotelRoomManager.Domain.Interfaces;
 using HotelRoomManager.Infrastructure.Context;
+using HotelRoomManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +21,7 @@ namespace HotelRoomManager.Infrastructure
             services.AddDbContext<HotelRoomDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
+            services.AddTransient<ISeedData, SeedData>();
             return services;
         }
     }
