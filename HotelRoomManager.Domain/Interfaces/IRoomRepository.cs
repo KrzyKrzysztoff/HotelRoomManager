@@ -9,7 +9,7 @@ namespace HotelRoomManager.Domain.Interfaces
 {
     public interface IRoomRepository
     {
-        Task<IEnumerable<Room>> GetAllAsync(RoomSortBy sortBy);
+        Task<IEnumerable<Room>> GetAllAsync();
         Task<Room?> GetByIdAsync(Guid id);
         Task AddAsync(Room room);
         Task UpdateAsync(Room room);
