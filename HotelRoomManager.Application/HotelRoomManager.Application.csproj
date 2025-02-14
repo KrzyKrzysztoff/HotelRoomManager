@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HotelRoomManager.Common\HotelRoomManager.Common.csproj" />
     <ProjectReference Include="..\HotelRoomManager.Domain\HotelRoomManager.Domain.csproj" />
   </ItemGroup>

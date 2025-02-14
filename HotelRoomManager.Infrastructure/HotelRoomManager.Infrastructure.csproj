@@ -20,8 +20,4 @@
     <ProjectReference Include="..\HotelRoomManager.Domain\HotelRoomManager.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>
