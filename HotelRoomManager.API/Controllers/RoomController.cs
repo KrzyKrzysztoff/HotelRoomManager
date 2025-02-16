@@ -87,11 +87,11 @@ namespace HotelRoomManager.API.Controllers
         }
 
         [HttpPatch("{id:guid}/availability")]
-        public async Task<IActionResult> UpdateRoomAvailability(Guid id, [FromBody] RoomStatus status, [FromBody] AvailabilityDetailDto? detailDto = null)
+        public async Task<IActionResult> UpdateRoomAvailability(Guid id, [FromBody] UpdateRoomAvailabilityDto request)
         {
             try
             {
-                await roomService.UpdateRoomAvailabilityAsync(id, status, detailDto);
+                await roomService.UpdateRoomAvailabilityAsync(id, request.Status, request.Detail);
                 return NoContent();
             }
             catch (RoomServiceException ex)

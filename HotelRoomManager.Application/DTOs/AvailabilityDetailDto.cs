@@ -8,7 +8,7 @@ namespace HotelRoomManager.Application.DTOs
 {
     public class AvailabilityDetailDto
     {
-        public string Reason { get; set; } = null!;  
-        public string? Description { get; set; }    
+        public string Reason { get; set; } = null!;
+        public string? Description { get; set; }
     }
 }
