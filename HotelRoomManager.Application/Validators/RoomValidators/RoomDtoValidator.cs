@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 using HotelRoomManager.Application.DTOs;
+using HotelRoomManager.Domain.Models;
 
 namespace HotelRoomManager.Application.Validators.RoomValidator
 {
@@ -29,6 +30,26 @@ namespace HotelRoomManager.Application.Validators.RoomValidator
             RuleFor(x => x.Description)
                 .MaximumLength(500)
                 .WithMessage("Description cannot be longer than 500 characters.");
+
+            When(x => x.Status is RoomStatus.ManuallyLocked or RoomStatus.Maintenance, () =>
+            {
+                RuleFor(x => x.Detail)
+                    .NotNull().WithMessage("Details are required for ManuallyLocked or Maintenance.");
+
+                RuleFor(x => x.Detail!.Reason)
+                    .NotEmpty().WithMessage("Reason is required for ManuallyLocked or Maintenance.")
+                    .MaximumLength(100)
+                    .WithMessage("Reason cannot be longer than 100 characters.");
+            });
+
+            When(x => x.Status is RoomStatus.Cleaning or RoomStatus.Occupied, () =>
+            {
+                RuleFor(x => x.Detail!.Reason)
+                    .NotEmpty().WithMessage("Reason cannot be empty if details are provided.")
+                    .When(x => x.Detail != null)  
+                    .MaximumLength(500)
+                    .WithMessage("Reason cannot be longer than 500 characters.");
+            });
         }
     }
 }

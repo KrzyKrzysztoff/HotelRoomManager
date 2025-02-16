@@ -8,10 +8,18 @@ using System.Threading.Tasks;
 using AutoMapper;
 using HotelRoomManager.Application.DTOs;
 using HotelRoomManager.Application.Exceptions;
+using FluentValidation;
+using HotelRoomManager.Application.Validators.RoomValidator;
+using System.ComponentModel.DataAnnotations;
+using System.Collections;
+using HotelRoomManager.Application.Validators.RoomValidators;
 
 namespace HotelRoomManager.Application.Services
 {
-    public class RoomService(IRoomRepository roomRepository, IMapper mapper) : IRoomService
+    public class RoomService(IRoomRepository roomRepository,
+        IMapper mapper,
+        IValidator<RoomDto> roomDtoValidator,
+        IValidator<UpdateRoomAvailabilityDto> roomAvailabilityDtoValidator) : IRoomService
     {
         public async Task<IEnumerable<RoomDto>> GetAllSortedAsync(RoomSortBy sortBy)
         {
@@ -28,13 +36,12 @@ namespace HotelRoomManager.Application.Services
                     RoomSortBy.Availability => rooms.OrderBy(r => r.Status),
                     _ => rooms
                 };
-
                 return mapper.Map<IEnumerable<RoomDto>>(rooms);
 
             }
             catch (Exception ex)
             {
-                throw new RoomServiceException("Failed to get rooms", ex);
+                throw new RoomServiceException($"Failed to get rooms: {ex.Message}", ex);
             }
         }
 
@@ -47,48 +54,92 @@ namespace HotelRoomManager.Application.Services
             }
             catch (Exception ex)
             {
-                throw new RoomServiceException("Failed to get room by ID", ex);
+                throw new RoomServiceException($"Failed to get room by ID: {ex.Message}", ex);
             }
         }
 
-        public async Task AddRoomAsync(RoomDto roomDto)
+        public async Task<OperationResult> AddRoomAsync(RoomDto roomDto)
         {
+            var result = new OperationResult();
+
             try
             {
+                var model = await roomDtoValidator.ValidateAsync(roomDto);
+
+                if (!model.IsValid)
+                {
+                    result.IsSuccess = false;
+                    result.Errors = string.Join(", ", model.Errors.Select(e => e.ErrorMessage));
+                    return result; 
+                }
+
                 var room = mapper.Map<Room>(roomDto);
+
                 await roomRepository.AddAsync(room);
+
+                result.IsSuccess = true;
+                result.Errors = string.Empty; 
             }
             catch (Exception ex)
             {
-                throw new RoomServiceException("Failed to add room", ex);
+                result.IsSuccess = false;
+                result.Errors = $"Failed to add room: {ex.Message}";
             }
+
+            return result;
         }
 
-        public async Task UpdateRoomAsync(RoomDto roomDto)
+        public async Task<OperationResult> UpdateRoomAsync(RoomDto roomDto)
         {
+            var result = new OperationResult();
             try
             {
+                var model = await roomDtoValidator.ValidateAsync(roomDto);
+
+                if (!model.IsValid)
+                {
+                    result.IsSuccess = false;
+                    result.Errors = string.Join(", ", model.Errors.Select(e => e.ErrorMessage));
+                    return result;
+                }
+
                 var room = mapper.Map<Room>(roomDto);
                 await roomRepository.UpdateAsync(room);
+
+                result.IsSuccess = true;
+                result.Errors = string.Empty;
             }
             catch (Exception ex)
             {
-                throw new RoomServiceException("Failed to update room", ex);
+                throw new RoomServiceException($"Failed to update room: {ex.Message}", ex);
             }
+
+            return result;
         }
 
-        public async Task UpdateRoomAvailabilityAsync(Guid id, RoomStatus status, AvailabilityDetailDto? detailDto = null)
+        public async Task<OperationResult> UpdateRoomAvailabilityAsync(UpdateRoomAvailabilityDto updateRoomAvailabilityDto)
         {
+            var result = new OperationResult();
             try
             {
-                var detail = mapper.Map<AvailabilityDetail>(detailDto);
-                await roomRepository.UpdateRoomAvailabilityAsync(id, status, detail);
+                var model = await roomAvailabilityDtoValidator.ValidateAsync(updateRoomAvailabilityDto);
+
+                if (!model.IsValid)
+                {
+                    result.IsSuccess = false;
+                    result.Errors = string.Join(", ", model.Errors.Select(e => e.ErrorMessage));
+                    return result;
+                }
+
+                var detail = mapper.Map<AvailabilityDetail>(updateRoomAvailabilityDto.Detail);
+                await roomRepository.UpdateRoomAvailabilityAsync(updateRoomAvailabilityDto.RoomId, updateRoomAvailabilityDto.Status, detail);
             }
             catch (Exception ex)
             {
-                throw new RoomServiceException("Failed to update room availability", ex);
+                throw new RoomServiceException($"Failed to update room availability: {ex.Message}", ex);
             }
 
+            return result;
         }
     }
 }

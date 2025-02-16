@@ -14,6 +14,7 @@ namespace HotelRoomManager.Application.Validators.RoomValidators
     {
         public UpdateRoomAvailabilityDtoValidator()
         {
+
             RuleFor(x => x.Status)
                 .IsInEnum().WithMessage("Invalid room status.");
 
@@ -28,11 +29,8 @@ namespace HotelRoomManager.Application.Validators.RoomValidators
             });
 
             // Optional details for Cleaning and Occupied
-            When(x => x.Status == RoomStatus.Cleaning || x.Status == RoomStatus.Occupied, () =>
+            When(x => x.Status is RoomStatus.Cleaning or RoomStatus.Occupied, () =>
             {
-                RuleFor(x => x.Detail)
-                    .NotNull().WithMessage("Details are optional, but must be valid if provided.");
-
                 RuleFor(x => x.Detail!.Reason)
                     .NotEmpty().WithMessage("Reason cannot be empty if details are provided.")
                     .When(x => x.Detail is not null);

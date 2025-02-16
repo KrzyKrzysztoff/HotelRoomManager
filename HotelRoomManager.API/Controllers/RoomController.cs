@@ -55,7 +55,11 @@ namespace HotelRoomManager.API.Controllers
         {
             try
             {
-                await roomService.AddRoomAsync(roomDto);
+               var result =  await roomService.AddRoomAsync(roomDto);
+
+                if (!result.IsSuccess && !string.IsNullOrEmpty(result.Errors))
+                    return BadRequest(new { Message = "An unexpected error occurred.", Errors = result.Errors });
+
                 return Created();
             }
             catch (RoomServiceException ex)
@@ -68,12 +72,16 @@ namespace HotelRoomManager.API.Controllers
             }
         }
 
-        [HttpPut("{id:guid}")]
-        public async Task<IActionResult> UpdateRoom(Guid id, [FromBody] RoomDto roomDto)
+        [HttpPut]
+        public async Task<IActionResult> UpdateRoom([FromBody] RoomDto roomDto)
         {
             try
             {
-                await roomService.UpdateRoomAsync(roomDto);
+               var result = await roomService.UpdateRoomAsync(roomDto);
+
+                if (!result.IsSuccess && !string.IsNullOrEmpty(result.Errors))
+                    return BadRequest(new { Message = "An unexpected error occurred.", Errors = result.Errors });
+
                 return NoContent();
             }
             catch (RoomServiceException ex)
@@ -86,12 +94,17 @@ namespace HotelRoomManager.API.Controllers
             }
         }
 
-        [HttpPatch("{id:guid}/availability")]
-        public async Task<IActionResult> UpdateRoomAvailability(Guid id, [FromBody] UpdateRoomAvailabilityDto request)
+        [HttpPatch("availability/")]
+        public async Task<IActionResult> UpdateRoomAvailability([FromBody] UpdateRoomAvailabilityDto request)
         {
             try
             {
-                await roomService.UpdateRoomAvailabilityAsync(id, request.Status, request.Detail);
+                var result = await roomService.UpdateRoomAvailabilityAsync(request);
+
+                if (!result.IsSuccess && !string.IsNullOrEmpty(result.Errors))
+                    return BadRequest(new { Message = "An unexpected error occurred.", Errors = result.Errors });
+
+
                 return NoContent();
             }
             catch (RoomServiceException ex)

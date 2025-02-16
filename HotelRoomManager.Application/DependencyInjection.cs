@@ -21,7 +21,6 @@ namespace HotelRoomManager.Application
 
             services.AddScoped<IValidator<RoomDto>, RoomDtoValidator>();
             services.AddScoped<IValidator<UpdateRoomAvailabilityDto>, UpdateRoomAvailabilityDtoValidator>();
-            services.AddScoped<IValidator<AvailabilityDetailDto>, AvailabilityDetailDtoValidator>();
 
             services.AddAutoMapper(typeof(RoomProfile));
         }

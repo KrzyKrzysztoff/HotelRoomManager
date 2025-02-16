@@ -7,8 +7,8 @@ namespace HotelRoomManager.Application.Services
     {
         Task<IEnumerable<RoomDto>> GetAllSortedAsync(RoomSortBy sortBy);
         Task<RoomDto?> GetRoomByIdAsync(Guid id);
-        Task AddRoomAsync(RoomDto room);
-        Task UpdateRoomAsync(RoomDto room);
-        Task UpdateRoomAvailabilityAsync(Guid id, RoomStatus status, AvailabilityDetailDto? detail = null);
+        Task<OperationResult> AddRoomAsync(RoomDto room);
+        Task<OperationResult> UpdateRoomAsync(RoomDto roomDto);
+        Task<OperationResult> UpdateRoomAvailabilityAsync(UpdateRoomAvailabilityDto updateRoomAvailabilityDto);
     }
 }

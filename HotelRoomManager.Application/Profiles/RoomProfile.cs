@@ -16,9 +16,15 @@ namespace HotelRoomManager.Application.Profiles
         {
             CreateMap<Room, RoomDto>()
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
-                .ForMember(dest => dest.Detail, opt => opt.MapFrom(src => src.Detail)); 
+                .ForMember(dest => dest.Detail, opt => opt.MapFrom(src => src.Detail));
 
-            CreateMap<AvailabilityDetail, UpdateRoomAvailabilityDto>();
+            CreateMap<RoomDto, Room>()
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
+                .ForMember(dest => dest.Detail, opt => opt.MapFrom(src => src.Detail));
+
+            CreateMap<AvailabilityDetail, AvailabilityDetailDto>();
+            CreateMap<AvailabilityDetailDto, AvailabilityDetail>();
+
         }
     }
 }

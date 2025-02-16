@@ -10,9 +10,19 @@ var configuration = builder.Configuration;
 builder.Services.AddInfrastructure(configuration);
 builder.Services.AddApplication();
 
+builder.Services.AddControllers();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseSwagger();
+app.UseSwaggerUI(x =>
+{
+    x.SwaggerEndpoint("/swagger/v1/swagger.json", "HotelRoomManager API v1");
+    x.RoutePrefix = string.Empty;
+});
 
 using (var scope = app.Services.CreateScope())
 {
@@ -22,6 +32,8 @@ using (var scope = app.Services.CreateScope())
     await seedData.Initialize();
 }
 app.UseHttpsRedirection();
+
+app.MapControllers();
 
 app.Run();
 

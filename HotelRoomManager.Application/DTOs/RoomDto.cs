@@ -14,6 +14,6 @@ namespace HotelRoomManager.Application.DTOs
         public int Size { get; set; }
         public RoomStatus Status { get; set; }
         public string? Description { get; set; }
-        public UpdateRoomAvailabilityDto? Detail { get; set; }
+        public AvailabilityDetailDto? Detail { get; set; }
     }
 }

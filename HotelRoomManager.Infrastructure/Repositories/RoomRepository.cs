@@ -14,12 +14,16 @@ namespace HotelRoomManager.Infrastructure.Repositories
     {
         public async Task<IEnumerable<Room>> GetAllAsync()
         {
-            return await dbContext.Rooms.ToListAsync();
+            return await dbContext.Rooms
+                .Include(x=>x.Detail)
+                .ToListAsync();
         }
 
         public async Task<Room?> GetByIdAsync(Guid id)
         {
-            return await dbContext.Rooms.FirstOrDefaultAsync(x => x.Id == id);
+            return await dbContext.Rooms
+                .Include(x=>x.Detail)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task AddAsync(Room room)
@@ -42,7 +46,23 @@ namespace HotelRoomManager.Infrastructure.Repositories
                 throw new InvalidOperationException($"Room with id {id} not found");
 
             room.Status = status;
-            room.Detail = detail; 
+
+            if (detail != null)
+            {
+                if (room.Detail != null)
+                {
+                    room.Detail.Reason = detail.Reason;
+                    room.Detail.Description = detail.Description;
+                }
+                else
+                {
+                    room.Detail = detail;
+                }
+            }
+            else
+            {
+                room.Detail = null;
+            }
 
             await dbContext.SaveChangesAsync();
         }
