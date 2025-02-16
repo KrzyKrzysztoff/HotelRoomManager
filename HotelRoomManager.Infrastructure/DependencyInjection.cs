@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using HotelRoomManager.Domain.Interfaces;
 using HotelRoomManager.Infrastructure.Context;
 using HotelRoomManager.Infrastructure.Data;
+using HotelRoomManager.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +23,8 @@ namespace HotelRoomManager.Infrastructure
                 options.UseSqlServer(connectionString));
 
             services.AddTransient<ISeedData, SeedData>();
+            services.AddTransient<IRoomRepository, RoomRepository>();
+
             return services;
         }
     }
