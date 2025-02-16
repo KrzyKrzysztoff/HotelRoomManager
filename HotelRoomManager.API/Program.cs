@@ -1,3 +1,4 @@
+using HotelRoomManager.Application;
 using HotelRoomManager.Domain.Interfaces;
 using HotelRoomManager.Infrastructure;
 using HotelRoomManager.Infrastructure.Context;
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 builder.Services.AddInfrastructure(configuration);
+builder.Services.AddApplication();
 
 
 var app = builder.Build();
