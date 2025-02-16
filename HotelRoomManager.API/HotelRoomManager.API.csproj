@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HotelRoomManager.Application\HotelRoomManager.Application.csproj" />
-    <ProjectReference Include="..\HotelRoomManager.Common\HotelRoomManager.Common.csproj" />
     <ProjectReference Include="..\HotelRoomManager.Infrastructure\HotelRoomManager.Infrastructure.csproj" />
   </ItemGroup>
 
