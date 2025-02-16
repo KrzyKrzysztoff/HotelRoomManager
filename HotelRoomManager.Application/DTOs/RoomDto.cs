@@ -9,6 +9,7 @@ namespace HotelRoomManager.Application.DTOs
 {
     public class RoomDto
     {
+        public Guid Id { get; set; }
         public string Name { get; set; } = null!;
         public int Size { get; set; }
         public RoomStatus Status { get; set; }
