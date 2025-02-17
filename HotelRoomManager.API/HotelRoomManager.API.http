@@ -1,6 +1,6 @@
 @HotelRoomManager.API_HostAddress = http://localhost:5032
 
-GET {{HotelRoomManager.API_HostAddress}}/api/Room/GetAllRooms?sortBy=NameAsc
+GET {{HotelRoomManager.API_HostAddress}}/api/Room?sortBy=NameAsc
 Accept: application/json
 
 ###

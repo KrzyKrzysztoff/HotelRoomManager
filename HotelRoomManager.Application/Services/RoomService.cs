@@ -134,7 +134,7 @@ namespace HotelRoomManager.Application.Services
                 var detail = mapper.Map<AvailabilityDetail>(updateRoomAvailabilityDto.Detail);
                 await roomRepository.UpdateRoomAvailabilityAsync(updateRoomAvailabilityDto.RoomId, updateRoomAvailabilityDto.Status, detail);
             }
-            catch (Exception ex)
+            catch (Exception ex)  
             {
                 throw new RoomServiceException($"Failed to update room availability: {ex.Message}", ex);
             }

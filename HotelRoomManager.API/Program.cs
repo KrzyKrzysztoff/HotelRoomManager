@@ -24,16 +24,23 @@ app.UseSwaggerUI(x =>
     x.RoutePrefix = string.Empty;
 });
 
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var seedData = services.GetRequiredService<ISeedData>();
+var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-    await seedData.Initialize();
+if (environment != "Test")
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var seedData = services.GetRequiredService<ISeedData>();
+
+        await seedData.Initialize();
+    }
 }
+
 app.UseHttpsRedirection();
 
 app.MapControllers();
 
 app.Run();
 
+public partial class Program { }
