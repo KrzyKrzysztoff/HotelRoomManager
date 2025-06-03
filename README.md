@@ -7,4 +7,4 @@ To run the application, first clone the repository using the following command: 
 If you prefer to use the In-Memory Database for testing, you can configure it by setting the environment variable: ASPNETCORE_ENVIRONMENT=Development
 
  dotnet run
- dotnet test
+ dotnet test !
